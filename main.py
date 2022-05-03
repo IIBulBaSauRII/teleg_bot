@@ -1,11 +1,11 @@
 from telegram.ext import Updater, MessageHandler, Filters, ConversationHandler
-from telegram.ext import CallbackContext, CommandHandler
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
-from tests.active_test import *
+from telegram.ext import CommandHandler
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
+from tests import active_test, attentive_test
 from data2 import token
 
 start_keyboard = [['/help', '/tests']]
-tests_keyboard = [['/back', '/first']]
+tests_keyboard = [['/back', '/active_test', '/attentive_test']]
 start_markup = ReplyKeyboardMarkup(start_keyboard, one_time_keyboard=False)
 tests_markup = ReplyKeyboardMarkup(tests_keyboard, one_time_keyboard=False)
 points = 0
@@ -20,28 +20,52 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("tests", tests))
 
-    conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('first', first)],
-        states={SECOND: [MessageHandler(Filters.regex('^(Да|Нет)$'), second)],
-                THIRD: [MessageHandler(Filters.regex('^(Да|Нет)$'), third)],
-                FOURTH: [MessageHandler(Filters.regex('^(реализация практических задач|деятельность, направленная на '
-                                                      'защиту человеческого достоинства и прав сограждан)$'), fourth)],
-                FIFTH: [MessageHandler(Filters.regex('^(религиозными положениями|идеями прекрасного|материальными '
-                                                     'соображениями|всеобщим благосостоянием)$'), fifth)],
-                SIXTH: [MessageHandler(Filters.regex('^(человека предприимчивого, работящего, наделенного практическим '
-                                                     'умом|человека думающего, мечтательного, оторванного от '
-                                                     'действительности|человека со способностями руководителя и '
-                                                     'организатора)$'), sixth)],
-                SEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), seventh)],
-                EIGHTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), eighth)],
-                NINETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), nineth)],
-                TENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), tenth)],
-                ELEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), eleventh)],
-                TWELVETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), twelveth)],
-                END: [MessageHandler(Filters.regex('^(Да|Нет)$'), end)],
+    conv_handler_active = ConversationHandler(
+        entry_points=[CommandHandler('active_test', active_test.active_test)],
+        states={active_test.SECOND: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.second)],
+                active_test.THIRD: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.third)],
+                active_test.FOURTH: [MessageHandler(Filters.regex(
+                    '^(реализация практических задач|деятельность, направленная на '
+                    'защиту человеческого достоинства и прав сограждан)$'),
+                                        active_test.fourth)],
+                active_test.FIFTH: [MessageHandler(Filters.regex(
+                    '^(религиозными положениями|идеями прекрасного|материальными '
+                    'соображениями|всеобщим благосостоянием)$'), active_test.fifth)],
+                active_test.SIXTH: [MessageHandler(Filters.regex(
+                    '^(человека предприимчивого, работящего, наделенного практическим '
+                    'умом|человека думающего, мечтательного, оторванного от '
+                    'действительности|человека со способностями руководителя и '
+                    'организатора)$'), active_test.sixth)],
+                active_test.SEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.seventh)],
+                active_test.EIGHTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.eighth)],
+                active_test.NINETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.nineth)],
+                active_test.TENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.tenth)],
+                active_test.ELEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.eleventh)],
+                active_test.TWELVETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.twelveth)],
+                active_test.END: [MessageHandler(Filters.regex('^(Да|Нет)$'), active_test.end)],
                 },
-        fallbacks=[CommandHandler('cancel', cancel)])
-    dp.add_handler(conv_handler)
+        fallbacks=[CommandHandler('cancel', active_test.cancel)])
+    conv_handler_attentive = ConversationHandler(
+        entry_points=[CommandHandler('attentive_test', attentive_test.attentive_test)],
+        states={attentive_test.SECOND: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.second)],
+                attentive_test.THIRD: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.third)],
+                attentive_test.FOURTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.fourth)],
+                attentive_test.FIFTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.fifth)],
+                attentive_test.SIXTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.sixth)],
+                attentive_test.SEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.seventh)],
+                attentive_test.EIGHTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.eighth)],
+                attentive_test.NINETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.nineth)],
+                attentive_test.TENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.tenth)],
+                attentive_test.ELEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.eleventh)],
+                attentive_test.TWELVETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.twelveth)],
+                attentive_test.THIRTEENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.thirteenth)],
+                attentive_test.FOURTEENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.fourteenth)],
+                attentive_test.FIFTEENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.fourteenth)],
+                attentive_test.END: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.end)],
+                },
+        fallbacks=[CommandHandler('cancel', active_test.cancel)])
+    dp.add_handler(conv_handler_active)
+    dp.add_handler(conv_handler_attentive)
 
     updater.start_polling()
     updater.idle()
@@ -74,11 +98,15 @@ def close_keyboard(update, context):
 
 def help(update, context):
     update.message.reply_text(
-        "Введите команду /first")
+        "Введите команду /active_test")
 
 
-def active_test(update, context):
-    return first()
+def start_active_test(update, context):
+    return active_test
+
+
+def start_attentive_test(update, context):
+    return attentive_test
 
 
 if __name__ == '__main__':

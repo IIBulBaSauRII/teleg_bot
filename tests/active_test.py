@@ -1,11 +1,12 @@
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import ConversationHandler
-from main import points, tests_markup
 
-FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINETH, TENTH, ELEVENTH, TWELVETH, END = range(13)
+ACTIVE_TEST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINETH, TENTH, ELEVENTH, TWELVETH, END = range(13)
+tests_keyboard = [['/back', '/active_test', '/attentive_test']]
+tests_markup = ReplyKeyboardMarkup(tests_keyboard, one_time_keyboard=False)
 
 
-def first(update, context):
+def active_test(update, context):
     global points
     reply_keyboard = [['Да', 'Нет']]
     markup_key = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
@@ -155,6 +156,9 @@ def twelveth(update, context):
 def cancel(update, context):
     global points
     points = 0
+    update.message.reply_text(
+        'Вы закрыли тест',
+        reply_markup=tests_markup)
     return ConversationHandler.END
 
 
