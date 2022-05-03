@@ -5,9 +5,10 @@ from tests.active_test import *
 from data2 import token
 
 start_keyboard = [['/help', '/tests']]
-tests_keyboard = [['/back', '/active_test']]
+tests_keyboard = [['/back', '/first']]
 start_markup = ReplyKeyboardMarkup(start_keyboard, one_time_keyboard=False)
 tests_markup = ReplyKeyboardMarkup(tests_keyboard, one_time_keyboard=False)
+points = 0
 
 
 def main():
@@ -18,7 +19,6 @@ def main():
     dp.add_handler(CommandHandler("back", back))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("tests", tests))
-    dp.add_handler(CommandHandler("active_test", first))
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('first', first)],
@@ -74,11 +74,11 @@ def close_keyboard(update, context):
 
 def help(update, context):
     update.message.reply_text(
-        "Я пока не умею помогать...")
+        "Введите команду /first")
 
 
 def active_test(update, context):
-    pass
+    return first()
 
 
 if __name__ == '__main__':

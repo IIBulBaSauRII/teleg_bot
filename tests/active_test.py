@@ -1,6 +1,6 @@
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import ConversationHandler
-
+from main import points, tests_markup
 
 FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINETH, TENTH, ELEVENTH, TWELVETH, END = range(13)
 
@@ -153,6 +153,8 @@ def twelveth(update, context):
 
 
 def cancel(update, context):
+    global points
+    points = 0
     return ConversationHandler.END
 
 
@@ -166,7 +168,7 @@ def end(update, context):
             ' на себя ответственность. Свое мнение держите скорее при себе. Слишком много в вас равнодушия и '
             'осторожности в отношениях с окружающими. Вы с большим трудом принимаете решения. Ваша энергия, а также '
             'способность к действиям зависят от вашего воображения и не всегда обоснованного страха. '
-            'Попытайтесь открыться!')
+            'Попытайтесь открыться!', reply_markup=tests_markup)
     else:
         update.message.reply_text(
             'Вы отличаетесь веселым характером, легко и в согласии живете с людьми. У вас есть определенные черты '
@@ -175,6 +177,8 @@ def end(update, context):
             'собственных изысканий, ибо вы в состоянии эффективно работать и распространять свои взгляды на окружающих.'
             ' Вы превосходите окружающих энергичностью и быстротой принятия решений, умеете брать на себя '
             'ответственность. В своем окружении вы желаемы и любимы, прежде всего за свою динамичность и необычайную '
-            'активность.')
+            'активность.', reply_markup=tests_markup)
+    points = 0
 
     return ConversationHandler.END
+
