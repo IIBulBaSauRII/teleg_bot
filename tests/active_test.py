@@ -2,7 +2,7 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import ConversationHandler
 
 ACTIVE_TEST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINETH, TENTH, ELEVENTH, TWELVETH, END = range(13)
-tests_keyboard = [['/back', '/active_test', '/attentive_test']]
+tests_keyboard = [['/back', '/active_test', '/attentive_test', '/sociable_test']]
 tests_markup = ReplyKeyboardMarkup(tests_keyboard, one_time_keyboard=False)
 
 

@@ -1,11 +1,11 @@
 from telegram.ext import Updater, MessageHandler, Filters, ConversationHandler
 from telegram.ext import CommandHandler
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
-from tests import active_test, attentive_test
+from tests import active_test, attentive_test, sociable_test
 from data2 import token
 
 start_keyboard = [['/help', '/tests']]
-tests_keyboard = [['/back', '/active_test', '/attentive_test']]
+tests_keyboard = [['/back', '/active_test', '/attentive_test', '/sociable_test']]
 start_markup = ReplyKeyboardMarkup(start_keyboard, one_time_keyboard=False)
 tests_markup = ReplyKeyboardMarkup(tests_keyboard, one_time_keyboard=False)
 points = 0
@@ -63,9 +63,25 @@ def main():
                 attentive_test.FIFTEENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.fourteenth)],
                 attentive_test.END: [MessageHandler(Filters.regex('^(Да|Нет)$'), attentive_test.end)],
                 },
-        fallbacks=[CommandHandler('cancel', active_test.cancel)])
+        fallbacks=[CommandHandler('cancel', attentive_test.cancel)])
+    conv_handler_sociable = ConversationHandler(
+        entry_points=[CommandHandler('sociable_test', sociable_test.sociable_test)],
+        states={sociable_test.SECOND: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.second)],
+                sociable_test.THIRD: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.third)],
+                sociable_test.FOURTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.fourth)],
+                sociable_test.FIFTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.fifth)],
+                sociable_test.SIXTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.sixth)],
+                sociable_test.SEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.seventh)],
+                sociable_test.EIGHTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.eighth)],
+                sociable_test.NINETH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.nineth)],
+                sociable_test.TENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.tenth)],
+                sociable_test.ELEVENTH: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.eleventh)],
+                sociable_test.END: [MessageHandler(Filters.regex('^(Да|Нет)$'), sociable_test.end)],
+                },
+        fallbacks=[CommandHandler('cancel', sociable_test.cancel)])
     dp.add_handler(conv_handler_active)
     dp.add_handler(conv_handler_attentive)
+    dp.add_handler(conv_handler_sociable)
 
     updater.start_polling()
     updater.idle()
@@ -107,6 +123,10 @@ def start_active_test(update, context):
 
 def start_attentive_test(update, context):
     return attentive_test
+
+
+def start_sociable_test(update, context):
+    return sociable_test
 
 
 if __name__ == '__main__':
