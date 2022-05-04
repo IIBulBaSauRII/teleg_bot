@@ -221,6 +221,8 @@ def end(update, context):
         update.message.reply_text(
             'Вы удивительно внимательны и проницательны. Такой памяти и такой внимательности остается только '
             'позавидовать - это дано не каждому.', reply_markup=tests_markup)
+    update.message.reply_text(
+        'Тест завершён')
     points = 0
 
     return ConversationHandler.END

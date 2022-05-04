@@ -8,6 +8,7 @@ tests_markup = ReplyKeyboardMarkup(tests_keyboard, one_time_keyboard=False)
 
 def active_test(update, context):
     global points
+    points = 0
     reply_keyboard = [['Да', 'Нет']]
     markup_key = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     update.message.reply_text(
@@ -182,6 +183,8 @@ def end(update, context):
             ' Вы превосходите окружающих энергичностью и быстротой принятия решений, умеете брать на себя '
             'ответственность. В своем окружении вы желаемы и любимы, прежде всего за свою динамичность и необычайную '
             'активность.', reply_markup=tests_markup)
+    update.message.reply_text(
+        'Тест завершён')
     points = 0
 
     return ConversationHandler.END
