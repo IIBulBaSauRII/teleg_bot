@@ -89,7 +89,7 @@ def main():
 
 def start(update, context):
     update.message.reply_text(
-        "Привет! Я тестер-бот. Попробуйте пройти пару тестов!",
+        "Привет! Я тестер-бот. Попробуй пройти пару тестов!",
         reply_markup=start_markup)
 
 
@@ -114,7 +114,12 @@ def close_keyboard(update, context):
 
 def help(update, context):
     update.message.reply_text(
-        "Введите команду /active_test")
+        "Введи команду /tests, после выберете желаемый тест."
+        "Виды тестов: "
+        "/active_test - тест насколько вы активный человек "
+        "/attentive_test - тест наксолько вы внимательный "
+        "/sociable_test - тест насколько вы общительный "
+        "Новые тесты будут появляться с обновлениями!")
 
 
 def start_active_test(update, context):
